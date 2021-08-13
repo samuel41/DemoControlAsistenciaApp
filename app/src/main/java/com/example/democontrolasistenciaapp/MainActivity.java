@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Executor executor;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
-    private String estadoActual = "Usuario fuera";
+    private String estadoActual = "Personal fuera";
     private String estadoStrBtn = "entrada";
     private Vibrator vibrator;
 
@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (estadoActual.equals("Usuario fuera")) {
-                    estadoActual = "Usuario dentro";
+                    estadoActual = "Personal dentro";
                     imgEstado.setImageResource(R.drawable.ic_baseline_check_circle_outline_24);
                 } else {
-                    estadoActual = "Usuario fuera";
+                    estadoActual = "Personal fuera";
                     imgEstado.setImageResource(R.drawable.ic_baseline_remove_circle_outline_24);
                 }
 

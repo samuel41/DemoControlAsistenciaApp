@@ -48,7 +48,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:textSize="40dp"
-        android:text="Usuario fuera" />
+        android:text="Personal fuera" />
 
     <ImageView
         android:id="@+id/img_estado"
