@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     estadoStrBtn = "entrada";
                 }
 
-                if (estadoActual.equals("Usuario fuera")) {
+                if (estadoActual.equals("Personal fuera")) {
                     estadoActual = "Personal dentro";
                     imgEstado.setImageResource(R.drawable.ic_baseline_check_circle_outline_24);
                 } else {
