@@ -4,33 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".MainActivity">
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Usa tu dedo para Ingresar" />
+        android:layout_marginHorizontal="40dp"
+        android:inputType="textMultiLine"
+        android:text="1. Autenticar al usuario para obtener sus datos y código al qué apuntar" />
 
-    <ImageView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_fingerprint_24"
-        android:layout_marginVertical="20dp"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="40dp"
+        android:inputType="textMultiLine"
+        android:text="2. Verificar si el dispositivo cuenta con biométrico y si cuenta con huella configurada" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="40dp"
+        android:inputType="textMultiLine"
+        android:text="3. Verificar si el usuario se encuentra dentro del perímetro (geofencing) para que pueda marcar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="40dp"
+        android:inputType="textMultiLine"
+        android:text="4. Al autenticar, hacer la escritura en la tupla del usuario con el código ya provisto" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txt_estado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:textSize="40dp"
+        android:text="Usuario fuera" />
+
+    <ImageView
+        android:id="@+id/img_estado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:src="@drawable/ic_baseline_remove_circle_outline_24" />
 
     <TextView
         android:id="@+id/txt_msg"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/login_btn"
+        android:id="@+id/btn_marcar"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="-15dp"
+        android:text="Marcar"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/txt_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingresar"
-        android:layout_marginVertical="12dp"/>
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"/>
 
 
 

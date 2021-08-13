@@ -2,28 +2,30 @@ package com.example.democontrolasistenciaapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
+import android.os.Vibrator;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.concurrent.Executor;
+import com.google.android.material.textview.MaterialTextView;
 
-import static android.hardware.biometrics.BiometricManager.Authenticators.BIOMETRIC_STRONG;
-import static android.hardware.biometrics.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity {
     private Executor executor;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
-
+    private String estadoActual = "Usuario fuera";
+    private String estadoStrBtn = "entrada";
+    private Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView txt_msg = findViewById(R.id.txt_msg);
-        Button login_btn = findViewById(R.id.login_btn);
+        Button btn_marcar = findViewById(R.id.btn_marcar);
+        MaterialTextView txt_estado = findViewById(R.id.txt_estado);
+        btn_marcar.setText("Marcar " + estadoStrBtn);
+        ImageView imgEstado = findViewById(R.id.img_estado);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        TextView txtResult = findViewById(R.id.txt_result);
 
         executor = ContextCompat.getMainExecutor(this);
         biometricPrompt = new BiometricPrompt(MainActivity.this,
@@ -49,8 +56,30 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthenticationSucceeded(
                     @NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                Toast.makeText(getApplicationContext(),
-                        "Authentication succeeded!", Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(getApplicationContext(),
+                        "Authentication succeeded!", Toast.LENGTH_SHORT).show();*/
+                vibrator.vibrate(500);
+
+                txtResult.setText(dbSendData(estadoStrBtn));
+
+                if (estadoStrBtn.equals("entrada")) {
+                    estadoStrBtn = "salida";
+                } else {
+                    estadoStrBtn = "entrada";
+                }
+
+                if (estadoActual.equals("Usuario fuera")) {
+                    estadoActual = "Usuario dentro";
+                    imgEstado.setImageResource(R.drawable.ic_baseline_check_circle_outline_24);
+                } else {
+                    estadoActual = "Usuario fuera";
+                    imgEstado.setImageResource(R.drawable.ic_baseline_remove_circle_outline_24);
+                }
+
+                btn_marcar.setText("Marcar " + estadoStrBtn);
+                txt_estado.setText(estadoActual);
+
+
             }
 
             @Override
@@ -63,17 +92,32 @@ public class MainActivity extends AppCompatActivity {
         });
 
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Coloca el dedo para marcar")
-                .setSubtitle("Ingresa usando tu credencial biométrica")
+                .setTitle("Marcar Asistencia")
+                .setDescription("Coloque el dedo para marcar entrada o salida")
                 .setNegativeButtonText("Usar contraseña del dispositivo")
                 .build();
 
         // Prompt appears when user clicks "Log in".
         // Consider integrating with the keystore to unlock cryptographic operations,
         // if needed by your app.
-        Button biometricLoginButton = findViewById(R.id.login_btn);
+        Button biometricLoginButton = findViewById(R.id.btn_marcar);
         biometricLoginButton.setOnClickListener(view -> {
             biometricPrompt.authenticate(promptInfo);
         });
     }
+
+    private String dbSendData(String estadoActual) {
+        SimpleDateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
+        Date date = new Date();
+        String result = "código: " + "\n" +
+                "nombres: SAMUEL RAY" + "\n" +
+                "apellidos: NÚÑEZ MAMANI" + "\n" +
+                "..." + "\n" +
+                "fecha: " + formatterDate.format(date) + "\n" +
+                "hora: " + formatterTime.format(date) + "\n" +
+                "estado: " + estadoActual;
+        return result;
+    }
+
 }
