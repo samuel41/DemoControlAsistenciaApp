@@ -26,6 +26,7 @@ import com.google.android.material.textview.MaterialTextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.net.NetworkInterface;
 import java.text.SimpleDateFormat;
@@ -42,12 +43,22 @@ public class MainActivity extends AppCompatActivity {
     private String estadoStrBtn = "entrada";
     private String dniUsuario = "";
     private Vibrator vibrator;
+    private String idUsuario = "", nombreUsuario = "", apellidoUsuario = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Bundle extras = getIntent().getExtras();
+        idUsuario = extras.getString("idUsuario");
+        dniUsuario = extras.getString("dniUsuario");
+        nombreUsuario = extras.getString("nombreUsuario");
+        apellidoUsuario = extras.getString("apellidoUsuario");
+
+
+        TextView txt_nombreUsuario = findViewById(R.id.txt_nombreusuario_main);
+        TextView txt_apellidoUsuario = findViewById(R.id.txt_apellidousuario_main);
         TextView txt_msg = findViewById(R.id.txt_msg);
         Button btn_marcar = findViewById(R.id.btn_marcar);
         Button btn_obtenerMAC = findViewById(R.id.btn_obtenerMAC);
@@ -56,40 +67,16 @@ public class MainActivity extends AppCompatActivity {
         ImageView imgEstado = findViewById(R.id.img_estado);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         TextView txtResult = findViewById(R.id.txt_result);
-
         EditText edtDniUsuario = findViewById(R.id.edt_dniUsuario);
+
+        txt_nombreUsuario.setText(nombreUsuario);
+        txt_apellidoUsuario.setText(apellidoUsuario);
 
         btn_obtenerMAC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //txtResult.setText(getMACAddress("wlan0"));
-                dniUsuario = edtDniUsuario.getText().toString();
-
-// Instantiate the RequestQueue.
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                //String url ="http://www.google.com";
-                String url ="http:172.26.115.240/ws/usuariosApi.php?dni=" + dniUsuario;
-
-                // Request a string response from the provided URL.
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                //String dniUsuario = response.getString("dniUsuario");
-                                //txtResult.setText(dniUsuario);
-                                txtResult.setText(response.toString());
-
-                            }
-                        }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        txtResult.setText(error.toString());
-                    }
-                });
-
-                // Add the request to the RequestQueue.
-                queue.add(jsonObjectRequest);
+                txtResult.setText(getMACAddress("wlan0"));
 
 
             }

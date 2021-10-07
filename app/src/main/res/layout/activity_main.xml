@@ -23,23 +23,36 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="40dp"
         android:inputType="textMultiLine"
-        android:text="2. Verificar si el dispositivo cuenta con biométrico y si cuenta con huella configurada" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginHorizontal="40dp"
-        android:inputType="textMultiLine"
-        android:text="3. Verificar si el usuario se encuentra dentro del perímetro (geofencing) para que pueda marcar" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginHorizontal="40dp"
-        android:inputType="textMultiLine"
         android:text="4. Al autenticar, hacer la escritura en la tupla del usuario con el código ya provisto" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Usuario:"
+        android:textSize="18dp"
+        />
+
+    <TextView
+        android:id="@+id/txt_nombreusuario_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text=""
+        android:textSize="18dp"
+        />
+
+    <TextView
+        android:id="@+id/txt_apellidousuario_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text=""
+        android:textSize="18dp"
+        />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txt_estado"
